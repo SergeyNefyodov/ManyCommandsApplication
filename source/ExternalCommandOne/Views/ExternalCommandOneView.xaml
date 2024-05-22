@@ -1,0 +1,22 @@
+﻿<Window
+    x:Class="ExternalCommandOne.Views.ExternalCommandOneView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel="clr-namespace:ExternalCommandOne.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:ExternalCommandOneViewModel}"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    Title="ExternalCommandOne"
+    Height="450"
+    Width="800">
+    <Grid>
+        <TextBlock
+            Text="ExternalCommandOne"
+            FontSize="60"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center" />
+    </Grid>
+</Window>
