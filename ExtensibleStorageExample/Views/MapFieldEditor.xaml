@@ -1,0 +1,29 @@
+﻿<Window x:Class="ExtensibleStorageExample.Views.MapFieldEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:ExtensibleStorageExample.Models"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance models:MapFieldDescriptor}"
+        Title="ArrayFieldEditor" Height="450" Width="300">
+    <StackPanel>
+        <TextBlock Margin="5" Text="{Binding Name}"/>
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Values}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Key" Binding="{Binding ActiveKey}"/>
+                <DataGridTextColumn Header="Value" Binding="{Binding ActiveValue}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                        <Button Content="Delete"
+                                CommandParameter="{Binding }"
+                                Command="{Binding DataContext.DeleteValueCommand, 
+                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Window>
