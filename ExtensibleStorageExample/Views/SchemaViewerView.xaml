@@ -1,0 +1,65 @@
+﻿<Window
+    x:Class="ExtensibleStorageExample.Views.SchemaViewerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel="clr-namespace:ExtensibleStorageExample.ViewModels" xmlns:converters="clr-namespace:ExtensibleStorageExample.Views.Converters"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:SchemaViewerViewModel}"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    Title="ExtensibleStorageExample"
+    Height="500"
+    Width="450">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ExtensibleStorageExample;component/Views/Dictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label
+                Margin="5"
+                Content="Select entity"/>
+            <ComboBox
+                Width="350"
+                HorizontalAlignment="Stretch"
+                Margin="5"
+                ItemsSource="{Binding Entities}"
+                SelectedItem="{Binding SelectedEntity}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Margin="2"
+                                   Text="{Binding EntityName}"
+                                   Background="{Binding IsExisted, Converter={converters:BoolColorConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        <TextBlock Text="Simple fields"/>
+        <DataGrid 
+            AutoGenerateColumns="False"
+            VerticalAlignment="Stretch"
+            ItemsSource="{Binding SelectedEntity.Fields}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Field" Binding="{Binding Name}"/>
+                <DataGridTemplateColumn Header="Value" CellTemplateSelector="{StaticResource DataGridCellSelector}"/>
+            </DataGrid.Columns>                    
+        </DataGrid>
+        <Button 
+            Margin="5"
+            Content="Select another element"
+            Command="{Binding SelectElementCommand}"/>        
+        <Button 
+            Margin="5"
+            Content="Create new schema"
+            Command="{Binding CreateNewSchemaCommand}"/>
+        <Button 
+            Margin="5"
+            Content="Save data"
+            Command="{Binding SaveDataCommand}"/>
+    </StackPanel>
+</Window>

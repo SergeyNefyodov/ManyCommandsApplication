@@ -2,9 +2,9 @@
 
 namespace ExtensibleStorageExample.Views
 {
-    public sealed partial class ExtensibleStorageExampleView
+    public sealed partial class SchemaViewerView
     {
-        public ExtensibleStorageExampleView(ExtensibleStorageExampleViewModel viewModel)
+        public SchemaViewerView(SchemaViewerViewModel viewModel)
         {
             DataContext = viewModel;
             InitializeComponent();

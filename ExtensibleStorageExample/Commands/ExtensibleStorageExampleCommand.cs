@@ -1,6 +1,4 @@
 ﻿using Autodesk.Revit.Attributes;
-using Autodesk.Revit.UI;
-using CommonProject.Core;
 using ExtensibleStorageExample.ViewModels;
 using ExtensibleStorageExample.Views;
 using Nice3point.Revit.Toolkit.External;
@@ -16,11 +14,12 @@ namespace ExtensibleStorageExample.Commands
     {
         public override void Execute()
         {
-            RevitShell.SayHello();
-            TaskDialog.Show("Info", $"{this.GetType().FullName} is executing");
-            //var viewModel = new ExtensibleStorageExampleViewModel();
-            //var view = new ExtensibleStorageExampleView(viewModel);
-            //view.ShowDialog();
+            var viewModel = new SchemaViewerViewModel();
+            var view = new SchemaViewerView(viewModel);
+            viewModel.CloseRequest += (s, e) => view.Close();
+            viewModel.HideRequest += (s, e) => view.Hide();
+            viewModel.ShowRequest += (s, e) => view.ShowDialog();
+            view.ShowDialog();
         }
     }
 }

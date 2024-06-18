@@ -1,0 +1,65 @@
+﻿<Window
+    x:Class="ExtensibleStorageExample.Views.SchemaCreatorView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel="clr-namespace:ExtensibleStorageExample.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:SchemaCreatorViewModel}"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    Title="ExtensibleStorageExample"
+    Height="500"
+    Width="300">
+    <StackPanel>
+        <StackPanel 
+            Orientation="Horizontal">
+            <Label
+                Margin="5"
+                Content="Schema name"/>
+            <TextBox
+                Width="170"
+                HorizontalAlignment="Right"
+                Margin="5"
+                Text="{Binding SchemaName}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label
+                Margin="5"
+                Content="Documentation"/>
+            <TextBox
+                Width="170"
+                HorizontalAlignment="Right"
+                Margin="5"
+                Text="{Binding Documentation}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label
+                Margin="5"
+                Content="VendorId"/>
+            <TextBox
+                Width="170"
+                HorizontalAlignment="Right"
+                Margin="5"
+                Text="{Binding VendorId}"/>
+        </StackPanel>
+        <DataGrid 
+            AutoGenerateColumns="False"
+            VerticalAlignment="Stretch"
+            ItemsSource="{Binding Fields}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Field name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Field type" Binding="{Binding FieldType}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button 
+            Margin="5"
+            Content="Add field"
+            Command="{Binding AddFieldCommand}"/>
+        <Button 
+            Margin="5"
+            Content="Save schema"
+            Command="{Binding SaveSchemaCommand}"/>
+    </StackPanel>
+</Window>

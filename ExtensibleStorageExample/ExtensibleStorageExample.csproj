@@ -44,11 +44,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Models" />
+        <ProjectReference Include="..\source\CommonProject\CommonProject.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\source\CommonProject\CommonProject.csproj" />
+        <Compile Update="Views\MapFieldEditor.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
 </Project>
