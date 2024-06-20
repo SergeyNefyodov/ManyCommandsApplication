@@ -1,5 +1,4 @@
-﻿using Application.Commands;
-using ExtensibleStorageExample.Commands;
+﻿using ExtensibleStorageExample.Commands;
 using ExternalCommandOne.Commands;
 using Nice3point.Revit.Toolkit.External;
 
@@ -24,7 +23,7 @@ namespace Application
                 .SetImage("/Application;component/Resources/Icons/RibbonIcon16.png")
                 .SetLargeImage("/Application;component/Resources/Icons/RibbonIcon32.png");
 
-            panel.AddPushButton<ExtensibleStorageExampleCommand>("Command 2")
+            panel.AddPushButton<ExtensibleStorageExampleCommand>("Schema Manager")
                 .SetImage("/Application;component/Resources/Icons/RibbonIcon16.png")
                 .SetLargeImage("/Application;component/Resources/Icons/RibbonIcon32.png");
         }

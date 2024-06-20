@@ -40,32 +40,47 @@ namespace ExtensibleStorageExample.ViewModels
             {
                 if (field is SimpleFieldDescriptor)
                 {
-                    var builder = _schemaBuilder.AddSimpleField(field.Name, field.FieldType);
-                    if (builder.NeedsUnits())
-                    {
-                        builder.SetSpec(field.Unit);
-                    }
+                    AddSimpleField(field);
                 }
                 else if (field is ArrayFieldDescriptor)
                 {
-                    var builder = _schemaBuilder.AddArrayField(field.Name, field.FieldType);
-                    if (builder.NeedsUnits())
-                    {
-                        builder.SetSpec(field.Unit);
-                    }
+                    AddArrayField(field);
                 }
                 else if (field is MapFieldDescriptor mapFieldDescriptor)
                 {
-                    var builder = _schemaBuilder.AddMapField(mapFieldDescriptor.Name, mapFieldDescriptor.KeyType, mapFieldDescriptor.FieldType);
-                    if (builder.NeedsUnits())
-                    {
-                        builder.SetSpec(field.Unit);
-                    }
+                    AddMapField(mapFieldDescriptor, field);
                 }
             }
 
             _schemaBuilder.Finish();
             RaiseCloseRequest();
+        }
+
+        private void AddMapField(MapFieldDescriptor mapFieldDescriptor, FieldDescriptor field)
+        {
+            var builder = _schemaBuilder.AddMapField(mapFieldDescriptor.Name, mapFieldDescriptor.KeyType, mapFieldDescriptor.FieldType);
+            if (builder.NeedsUnits())
+            {
+                builder.SetSpec(field.Unit);
+            }
+        }
+
+        private void AddArrayField(FieldDescriptor field)
+        {
+            var builder = _schemaBuilder.AddArrayField(field.Name, field.FieldType);
+            if (builder.NeedsUnits())
+            {
+                builder.SetSpec(field.Unit);
+            }
+        }
+
+        private void AddSimpleField(FieldDescriptor field)
+        {
+            var builder = _schemaBuilder.AddSimpleField(field.Name, field.FieldType);
+            if (builder.NeedsUnits())
+            {
+                builder.SetSpec(field.Unit);
+            }
         }
 
         [RelayCommand]

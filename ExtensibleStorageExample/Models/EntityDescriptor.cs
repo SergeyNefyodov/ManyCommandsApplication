@@ -20,63 +20,15 @@ namespace ExtensibleStorageExample.Models
 
                 if (field.ContainerType == ContainerType.Simple)
                 {
-                    var info = typeof(Entity).GetMethod("Get", [typeof(string)]);
-                    var getMethod = info!.MakeGenericMethod(valueType);
-                    var value = getMethod.Invoke(entity, new object[] { field.FieldName });
-                    Fields.Add(new SimpleFieldDescriptor()
-                    {
-                        Name = field.FieldName,
-                        FieldType = valueType,
-                        Value = value
-                    });
+                    DescribeSimpleField(entity, valueType, field);
                 }
-
-                if (field.ContainerType == ContainerType.Array)
+                else if (field.ContainerType == ContainerType.Array)
                 {
-                    var info = typeof(Entity).GetMethod("Get", [typeof(string)]);
-                    var genericListType = typeof(IList<>).MakeGenericType(valueType);
-                    var getMethod = info!.MakeGenericMethod(genericListType);
-                    var value = (ICollection)getMethod.Invoke(entity, new object[] { field.FieldName });
-                    var values = new ObservableCollection<ArrayValue>();
-                    foreach (var obj in value)
-                    {
-                        values.Add(new ArrayValue()
-                        {
-                            Type = valueType,
-                            ActiveValue = obj
-                        });
-                    }
-
-                    Fields.Add(new ArrayFieldDescriptor()
-                    {
-                        Name = field.FieldName,
-                        FieldType = valueType,
-                        Values = values
-                    });
+                    DescribeArrayField(entity, valueType, field);
                 }
                 else if (field.ContainerType == ContainerType.Map)
                 {
-                    var info = typeof(Entity).GetMethod("Get", [typeof(string)]);
-                    var genericDictType = typeof(IDictionary<,>).MakeGenericType(field.KeyType, valueType);
-                    var getMethod = info!.MakeGenericMethod(genericDictType);
-                    var value = (IDictionary)getMethod.Invoke(entity, new object[] { field.FieldName });
-                    var values = new ObservableCollection<MapValue>();
-                    foreach (var obj in value.Keys)
-                    {
-                        values.Add(new MapValue()
-                        {
-                            Type = valueType,
-                            ActiveValue = value[obj],
-                            ActiveKey = obj
-                        });
-                    }
-
-                    Fields.Add(new MapFieldDescriptor()
-                    {
-                        Name = field.FieldName,
-                        FieldType = valueType,
-                        Values = values
-                    });
+                    DescribeMapField(entity, field, valueType);
                 }
             }
 
@@ -94,30 +46,15 @@ namespace ExtensibleStorageExample.Models
 
                 if (field.ContainerType == ContainerType.Simple)
                 {
-                    Fields.Add(new SimpleFieldDescriptor()
-                    {
-                        Name = field.FieldName,
-                        FieldType = valueType,
-                    });
+                    CreateEmptySimpleField(field, valueType);
                 }
                 else if (field.ContainerType == ContainerType.Array)
                 {
-                    Fields.Add(new ArrayFieldDescriptor()
-                    {
-                        Name = field.FieldName,
-                        FieldType = valueType,
-                        Values = []
-                    });
+                    CreateEmptyArrayField(field, valueType);
                 }
                 else if (field.ContainerType == ContainerType.Map)
                 {
-                    Fields.Add(new MapFieldDescriptor()
-                    {
-                        Name = field.FieldName,
-                        FieldType = valueType,
-                        KeyType = field.KeyType,
-                        Values = []
-                    });
+                    CreateEmptyMapField(field, valueType);
                 }
             }
         }
@@ -126,5 +63,98 @@ namespace ExtensibleStorageExample.Models
         public Guid Guid { get; set; }
 
         public List<FieldDescriptor> Fields { get; set; } = [];
+
+        private void DescribeMapField(Entity entity, Field field, Type valueType)
+        {
+            var info = typeof(Entity).GetMethod("Get", [typeof(string)]);
+            var genericDictType = typeof(IDictionary<,>).MakeGenericType(field.KeyType, valueType);
+            var getMethod = info!.MakeGenericMethod(genericDictType);
+            var value = (IDictionary)getMethod.Invoke(entity, [field.FieldName]);
+
+            var values = new ObservableCollection<MapValue>();
+            foreach (var key in value!.Keys)
+            {
+                values.Add(new MapValue
+                {
+                    Type = valueType,
+                    ActiveValue = value[key]!,
+                    ActiveKey = key
+                });
+            }
+
+            Fields.Add(new MapFieldDescriptor
+            {
+                Name = field.FieldName,
+                FieldType = valueType,
+                Values = values
+            });
+        }
+
+        private void DescribeArrayField(Entity entity, Type valueType, Field field)
+        {
+            var info = typeof(Entity).GetMethod("Get", [typeof(string)]);
+            var genericListType = typeof(IList<>).MakeGenericType(valueType);
+            var getMethod = info!.MakeGenericMethod(genericListType);
+            var value = (ICollection)getMethod.Invoke(entity, [field.FieldName]);
+            var values = new ObservableCollection<ArrayValue>();
+            foreach (var obj in value!)
+            {
+                values.Add(new ArrayValue
+                {
+                    Type = valueType,
+                    ActiveValue = obj
+                });
+            }
+
+            Fields.Add(new ArrayFieldDescriptor
+            {
+                Name = field.FieldName,
+                FieldType = valueType,
+                Values = values
+            });
+        }
+
+        private void DescribeSimpleField(Entity entity, Type valueType, Field field)
+        {
+            var info = typeof(Entity).GetMethod("Get", [typeof(string)]);
+            var getMethod = info!.MakeGenericMethod(valueType);
+            var value = getMethod.Invoke(entity, [field.FieldName]);
+            Fields.Add(new SimpleFieldDescriptor
+            {
+                Name = field.FieldName,
+                FieldType = valueType,
+                Value = value
+            });
+        }
+
+        private void CreateEmptyMapField(Field field, Type valueType)
+        {
+            Fields.Add(new MapFieldDescriptor
+            {
+                Name = field.FieldName,
+                FieldType = valueType,
+                KeyType = field.KeyType,
+                Values = []
+            });
+        }
+
+        private void CreateEmptyArrayField(Field field, Type valueType)
+        {
+            Fields.Add(new ArrayFieldDescriptor
+            {
+                Name = field.FieldName,
+                FieldType = valueType,
+                Values = []
+            });
+        }
+
+        private void CreateEmptySimpleField(Field field, Type valueType)
+        {
+            Fields.Add(new SimpleFieldDescriptor
+            {
+                Name = field.FieldName,
+                FieldType = valueType,
+            });
+        }
     }
 }

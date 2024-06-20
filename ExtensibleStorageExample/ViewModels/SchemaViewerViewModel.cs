@@ -14,12 +14,11 @@ namespace ExtensibleStorageExample.ViewModels
 
         public SchemaViewerViewModel()
         {
-            var ids = Context.UiDocument.Selection.GetElementIds();
-            if (ids.Count == 1)
-            {
-                _element = ids.ElementAt(0).ToElement(Context.Document);
-                CollectValues();
-            }
+            var ids = Context.UiDocument!.Selection.GetElementIds();
+            if (ids.Count != 1) return;
+
+            _element = ids.ElementAt(0).ToElement(Context.Document);
+            CollectValues();
         }
 
         [RelayCommand]
@@ -27,7 +26,7 @@ namespace ExtensibleStorageExample.ViewModels
         {
             RaiseHideRequest();
             Entities.Clear();
-            var reference = Context.UiDocument.Selection.PickObject(ObjectType.Element);
+            var reference = Context.UiDocument!.Selection.PickObject(ObjectType.Element);
             _element = Context.Document.GetElement(reference);
             CollectValues();
             RaiseShowRequest();
@@ -39,7 +38,7 @@ namespace ExtensibleStorageExample.ViewModels
             RaiseHideRequest();
             var createViewModel = new SchemaCreatorViewModel();
             var view = new SchemaCreatorView(createViewModel);
-            createViewModel.CloseRequest += (s, e) => view.Close();
+            createViewModel.CloseRequest += (_, _) => view.Close();
             view.ShowDialog();
             RaiseShowRequest();
         }
@@ -61,41 +60,56 @@ namespace ExtensibleStorageExample.ViewModels
                     entity = new Entity(schema);
                 }
 
-                if (field is SimpleFieldDescriptor simpleField)
+                if (field is SimpleFieldDescriptor simpleFieldDescriptor)
                 {
-                    if (simpleField.Value is null) continue;
-
-                    var value = simpleField.Value.ToString();
-                    entity.Set<string>(simpleField.Name, value);
-                    _element.SetEntity(entity);
+                    SaveSimpleValue(simpleFieldDescriptor, entity);
                 }
-                else if (field is ArrayFieldDescriptor arrayField)
+                else if (field is ArrayFieldDescriptor arrayFieldDescriptor)
                 {
-                    var list = entity.Get<IList<string>>(arrayField.Name);
-                    list.Clear();
-                    foreach (var value in arrayField.Values)
-                    {
-                        list.Add(value.ActiveValue.ToString());
-                    }
-
-                    entity.Set(arrayField.Name, list);
-                    _element.SetEntity(entity);
+                    SaveArrayValue(entity, arrayFieldDescriptor);
                 }
                 else if (field is MapFieldDescriptor mapFieldDescriptor)
                 {
-                    var dictionary = entity.Get<IDictionary<string, string>>(mapFieldDescriptor.Name);
-                    dictionary.Clear();
-                    foreach (var value in mapFieldDescriptor.Values)
-                    {
-                        dictionary.Add(value.ActiveKey.ToString(), value.ActiveValue.ToString());
-                    }
-
-                    entity.Set(mapFieldDescriptor.Name, dictionary);
-                    _element.SetEntity(entity);
+                    SaveMapValue(entity, mapFieldDescriptor);
                 }
             }
 
             transaction.Commit();
+        }
+
+        private void SaveMapValue(Entity entity, MapFieldDescriptor mapFieldDescriptor)
+        {
+            var dictionary = entity.Get<IDictionary<string, string>>(mapFieldDescriptor.Name);
+            dictionary.Clear();
+            foreach (var value in mapFieldDescriptor.Values)
+            {
+                dictionary.Add(value.ActiveKey.ToString()!, value.ActiveValue.ToString());
+            }
+
+            entity.Set(mapFieldDescriptor.Name, dictionary);
+            _element.SetEntity(entity);
+        }
+
+        private void SaveArrayValue(Entity entity, ArrayFieldDescriptor arrayFieldDescriptor)
+        {
+            var list = entity.Get<IList<string>>(arrayFieldDescriptor.Name);
+            list.Clear();
+            foreach (var value in arrayFieldDescriptor.Values)
+            {
+                list.Add(value.ActiveValue.ToString());
+            }
+
+            entity.Set(arrayFieldDescriptor.Name, list);
+            _element.SetEntity(entity);
+        }
+
+        private void SaveSimpleValue(SimpleFieldDescriptor simpleField, Entity entity)
+        {
+            if (simpleField.Value is null) return;
+
+            var value = simpleField.Value.ToString();
+            entity.Set(simpleField.Name, value);
+            _element.SetEntity(entity);
         }
 
 
