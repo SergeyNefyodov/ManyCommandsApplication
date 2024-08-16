@@ -33,19 +33,12 @@ namespace Application
         private void RegisterUpdaters()
         {
             var parametersUpdater = new ParametersUpdater();
-            UpdaterRegistry.RegisterUpdater(parametersUpdater);
+            UpdaterRegistry.RegisterUpdater(parametersUpdater,true);
             var updaterId = parametersUpdater.GetUpdaterId();
 
             var filter = new ElementClassFilter(typeof(MEPCurve));
             UpdaterRegistry.AddTrigger(updaterId, filter, Element.GetChangeTypeGeometry());
             UpdaterRegistry.AddTrigger(updaterId, filter, Element.GetChangeTypeElementAddition());
-
-            var firstUpdater = new FirstUpdater();
-            UpdaterRegistry.RegisterUpdater(firstUpdater);
-            var firstUpdaterId = firstUpdater.GetUpdaterId();
-
-            UpdaterRegistry.AddTrigger(firstUpdaterId, filter, Element.GetChangeTypeGeometry());
-            UpdaterRegistry.AddTrigger(firstUpdaterId, filter, Element.GetChangeTypeElementAddition());
         }
     }
 }

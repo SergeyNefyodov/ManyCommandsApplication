@@ -24,7 +24,6 @@ namespace UpdaterExample.Updaters
                     element.FindParameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS).Set(length.ToString());
                 }    
             }
-            TaskDialog.Show("2", "Last updater has been executed");
         }
 
         public string GetAdditionalInformation()
