@@ -38,7 +38,8 @@ namespace UpdaterExample.Updaters
 
         public UpdaterId GetUpdaterId()
         {
-            return new UpdaterId(Context.Application.ActiveAddInId, new Guid("A7BFD833-1472-4FE0-B0F0-408AC43B3DA1"));
+            return new UpdaterId(Context.Application.ActiveAddInId,
+                new Guid("A7BFD833-1472-4FE0-B0F0-408AC43B3DA1"));
         }
 
         public string GetUpdaterName()
