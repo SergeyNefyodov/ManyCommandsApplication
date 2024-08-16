@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonProject", "source\Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalCommandOne", "source\ExternalCommandOne\ExternalCommandOne.csproj", "{4F0B5139-B810-485F-9B9F-09338A0EC1B5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensibleStorageExample", "ExtensibleStorageExample\ExtensibleStorageExample.csproj", "{884E1358-E3E5-4264-9B80-184A1DA97F82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensibleStorageExample", "source\ExtensibleStorageExample\ExtensibleStorageExample.csproj", "{884E1358-E3E5-4264-9B80-184A1DA97F82}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdaterExample", "source\UpdaterExample\UpdaterExample.csproj", "{F47F705C-483D-463F-8120-46205A4BE6D4}"
 EndProject

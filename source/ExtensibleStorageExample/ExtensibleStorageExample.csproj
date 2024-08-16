@@ -48,10 +48,4 @@
         <ProjectReference Include="..\source\CommonProject\CommonProject.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Compile Update="Views\MapFieldEditor.xaml.cs">
-            <SubType>Code</SubType>
-        </Compile>
-    </ItemGroup>
-
 </Project>
