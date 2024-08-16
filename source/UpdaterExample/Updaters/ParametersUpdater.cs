@@ -43,7 +43,7 @@ namespace UpdaterExample.Updaters
 
         public string GetUpdaterName()
         {
-            return "LastUpdater";
+            return "Mep curve length to comments updater";
         }
     }
 }
