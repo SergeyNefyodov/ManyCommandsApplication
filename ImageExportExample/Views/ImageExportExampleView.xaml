@@ -1,0 +1,42 @@
+﻿<Window
+    x:Class="ImageExportExample.Views.ImageExportExampleView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel="clr-namespace:ImageExportExample.ViewModels"
+    xmlns:converters="clr-namespace:ImageExportExample.Views.Converters"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModel:ImageExportExampleViewModel}"
+    WindowStartupLocation="CenterScreen"
+    Title="ImageExportExample"
+    Height="850"
+    Width="400">
+    <StackPanel>
+        <Button Content="Add image" Margin="5" Command="{Binding AddImageCommand}"/>
+        <ListView ItemsSource="{Binding Elements}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image 
+                            Width="200" Height="200" Source="{Binding Path=Image, Converter={converters:ImageBitmapConverter}}"/>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Margin="5">
+                                <Run> Element Id</Run>
+                                <Run Text="{Binding Id}"/>
+                            </TextBlock>
+                            <TextBlock Margin="5">
+                                <Run> Element Name</Run>
+                                <Run Text="{Binding Name}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
+</Window>
