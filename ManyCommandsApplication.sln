@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensibleStorageExample", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdaterExample", "source\UpdaterExample\UpdaterExample.csproj", "{F47F705C-483D-463F-8120-46205A4BE6D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageExportExample", "ImageExportExample\ImageExportExample.csproj", "{75C2EF19-B1AC-42FA-B455-D1146885BC4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageExportExample", "source\ImageExportExample\ImageExportExample.csproj", "{75C2EF19-B1AC-42FA-B455-D1146885BC4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

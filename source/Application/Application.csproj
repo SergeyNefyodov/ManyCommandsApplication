@@ -54,7 +54,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\ImageExportExample\ImageExportExample.csproj" />
+      <ProjectReference Include="..\ImageExportExample\ImageExportExample.csproj" />
       <ProjectReference Include="..\ExtensibleStorageExample\ExtensibleStorageExample.csproj" />
       <ProjectReference Include="..\ExternalCommandOne\ExternalCommandOne.csproj" />
       <ProjectReference Include="..\UpdaterExample\UpdaterExample.csproj" />
