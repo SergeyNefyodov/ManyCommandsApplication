@@ -32,7 +32,7 @@ namespace Application
 
             panel.AddPushButton<ImageExportCommand>("Image example")
                 .SetImage("/Application;component/Resources/Icons/RibbonIcon16.png")
-                .SetLargeImage("/Application;component/Resources/Icons/RibbonIcon32.png");
+                .SetLargeImage("/Application;component/Resources/Icons/icons8-building-32-96.png");
         }
 
         private void RegisterUpdaters()

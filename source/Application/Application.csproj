@@ -39,6 +39,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Resources\Icons\icons8-building-32-300.png" />
+      <None Remove="Resources\Icons\icons8-building-32-72.png" />
+      <None Remove="Resources\Icons\icons8-building-32-96.png" />
+      <None Remove="Resources\Icons\icons8-building-32.png" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Nice3point.Revit.Build.Tasks" Version="1.*" />
         <PackageReference Include="Nice3point.Revit.Toolkit" Version="$(RevitVersion).*" />
         <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*" />
@@ -54,6 +61,15 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Resource Include="Resources\Icons\icons8-building-32-300.png">
+          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\icons8-building-32-72.png">
+          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\icons8-building-32-96.png">
+          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </Resource>
         <Resource Include="Resources\Icons\RibbonIcon16.png" />
         <Resource Include="Resources\Icons\RibbonIcon32.png" />
     </ItemGroup>
