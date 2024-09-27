@@ -1,5 +1,6 @@
 ﻿using ExtensibleStorageExample.Commands;
 using ExternalCommandOne.Commands;
+using FloorCreatorExample.Commands;
 using ImageExportExample.Commands;
 using Nice3point.Revit.Toolkit.External;
 using UpdaterExample.Updaters;
@@ -31,6 +32,10 @@ namespace Application
                 .SetLargeImage("/Application;component/Resources/Icons/RibbonIcon32.png");
 
             panel.AddPushButton<ImageExportCommand>("Image example")
+                .SetImage("/Application;component/Resources/Icons/RibbonIcon16.png")
+                .SetLargeImage("/Application;component/Resources/Icons/icons8-building-32-96.png");
+
+            panel.AddPushButton<FloorCreatorCommand>("Create floors")
                 .SetImage("/Application;component/Resources/Icons/RibbonIcon16.png")
                 .SetLargeImage("/Application;component/Resources/Icons/icons8-building-32-96.png");
         }
