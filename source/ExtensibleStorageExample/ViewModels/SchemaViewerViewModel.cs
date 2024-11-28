@@ -30,6 +30,8 @@ namespace ExtensibleStorageExample.ViewModels
             _element = Context.Document.GetElement(reference);
             CollectValues();
             RaiseShowRequest();
+
+            var color = System.Windows.Media.Colors.Green;
         }
 
         [RelayCommand]

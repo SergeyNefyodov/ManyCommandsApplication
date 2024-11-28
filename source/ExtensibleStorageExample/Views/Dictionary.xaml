@@ -31,4 +31,87 @@
     </DataTemplate>
 
     <views:DataGridCellSelector x:Key="DataGridCellSelector" />
+
+
+
+    <Style
+        TargetType="Button"
+        x:Key="TrigerredButtonStyle">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.Setters>
+                    <Setter Property="BorderThickness" Value="3"/>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.05" ScaleY="1.05" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger.Setters>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Trigger.Setters>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger.Setters>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        TargetType="Button"
+        x:Key="AnimatedButtonStyle">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                To="1.05"
+                                Duration="0:0:0.5" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                To="1.05"
+                                Duration="0:0:0.5" />
+                            <ThicknessAnimation
+                                Storyboard.TargetProperty="BorderThickness"
+                                To="3"
+                                Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)"
+                                To="1"
+                                Duration="0:0:0.5" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)"
+                                To="1"
+                                Duration="0:0:0.5" />
+                            <ThicknessAnimation
+                                Storyboard.TargetProperty="BorderThickness"
+                                To="1"
+                                Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
 </ResourceDictionary>

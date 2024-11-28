@@ -50,15 +50,23 @@
             </DataGrid.Columns>                    
         </DataGrid>
         <Button 
-            Margin="5"
+            Margin="10"
+            Padding="5"
+            HorizontalAlignment="Center"
             Content="Select another element"
             Command="{Binding SelectElementCommand}"/>        
         <Button 
-            Margin="5"
+            Style="{StaticResource TrigerredButtonStyle}"
+            Margin="10"
+            Padding="5"
+            HorizontalAlignment="Center"
             Content="Create new schema"
             Command="{Binding CreateNewSchemaCommand}"/>
         <Button 
-            Margin="5"
+            Style="{StaticResource AnimatedButtonStyle}"
+            Margin="10"
+            Padding="5"
+            HorizontalAlignment="Center"
             Content="Save data"
             Command="{Binding SaveDataCommand}"/>
     </StackPanel>
